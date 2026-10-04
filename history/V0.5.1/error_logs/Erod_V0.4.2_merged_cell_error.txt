@@ -1,0 +1,23 @@
+小八取字工 — V0.4.2 合併儲存格錯誤
+
+問題檔案：
+D:\【林政偉資料區】\10.【辦理案件】\10.【工程案件】\01.【臺中工務段轄區鐵路跨河橋梁基礎裸露補強工程(C標)】\03.【招標資料】\2.【發包資料】-第3次-決標\01.發包資料\01.送採購\臺中段施工規範-C標(舊).docx
+
+錯誤說明：
+Microsoft Word：無法將文字插入一個已合併至其他儲存格的表格儲存格。
+
+技術細節：
+Traceback (most recent call last):
+  File "C:\Users\0463455\Downloads\Erod_V0.4.2.pyw", line 1244, in _worker
+    output, count = process_document(...)
+  File "C:\Users\0463455\Downloads\Erod_V0.4.2.pyw", line 685, in process_document
+    count = replace_with_word(...)
+  File "C:\Users\0463455\Downloads\Erod_V0.4.2.pyw", line 396, in replace_with_word
+    hit.Text = replace_value
+  File "C:\Users\0463455\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 677, in __setattr__
+    self._oleobj_.Invoke(entry.dispid, 0, invoke_type, 0, value)
+pywintypes.com_error: (-2147352567, '發生例外狀況。', (0, 'Microsoft Word', '無法將文字插入一個已合併至其他儲存格的表格儲存格。', 'wdmain11.chm', 25796, -2146821972), None)
+
+判斷：
+V0.4.2 依據整個 StoryRange.Text 的位置建立 Range，合併儲存格使部分位置對應到 Word 內部儲存格標記；設定 Range.Text 時因此失敗。
+

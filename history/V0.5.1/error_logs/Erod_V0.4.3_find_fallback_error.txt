@@ -1,0 +1,43 @@
+小八取字工 錯誤輸出說明
+程式版本：V0.4.3
+處理時間：2026-08-24 16:07:42
+總檔案數：1
+成功：0　失敗：1
+追蹤修訂：啟用
+紅色底線：停用
+
+替換設定：
+  「承包商」 → 「廠商」
+  「工程司」 → 「監造單位」
+
+失敗檔案：
+
+[1] C:\Users\0463455\Downloads\臺中段施工規範-C標(舊).docx
+錯誤說明：合併儲存格內的文字無法替換
+處理建議：程式已嘗試使用 Word 原生替換；若仍失敗，請檢查該表格是否有損壞的合併儲存格。
+技術細節：
+Traceback (most recent call last):
+  File "C:\Users\0463455\Downloads\Erod_V0.4.3.pyw", line 294, in _replace_word_hit
+    raise RuntimeError("Word 原生替換找不到合併儲存格內的目標文字。")
+RuntimeError: Word 原生替換找不到合併儲存格內的目標文字。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\0463455\Downloads\Erod_V0.4.3.pyw", line 1310, in _worker
+    output, count = process_document(...)
+  File "C:\Users\0463455\Downloads\Erod_V0.4.3.pyw", line 751, in process_document
+    count = replace_with_word(...)
+  File "C:\Users\0463455\Downloads\Erod_V0.4.3.pyw", line 460, in replace_with_word
+    _replace_word_hit(...)
+  File "C:\Users\0463455\Downloads\Erod_V0.4.3.pyw", line 299, in _replace_word_hit
+    raise direct_error
+  File "C:\Users\0463455\Downloads\Erod_V0.4.3.pyw", line 265, in _replace_word_hit
+    hit.Text = replace_value
+  File "C:\Users\0463455\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 657, in __setattr__
+    self._oleobj_.Invoke(entry.dispid, 0, invoke_type, 0, value)
+pywintypes.com_error: (-2147352567, '發生例外狀況。', (0, 'Microsoft Word', '無法將文字插入一個已合併至其他儲存格的表格儲存格。', 'wdmain11.chm', 25796, -2146821972), None)
+
+判斷：
+V0.4.3 的 Find/Replace 備援仍建立在原本錯誤的 Range 上，因此 Word 在該範圍找不到可見的目標文字。V0.5.0 已改用 Open XML 修改後再 CompareDocuments 的架構。
+

@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+Erod_error_*.txt
+*rw_20*.doc
+*rw_20*.docx
+*rw_20*.docm
